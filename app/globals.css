@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --elkubo-cyan: #00BFFF;
+  --elkubo-yellow: #FDD835;
+  --elkubo-teal: #0F4C5C;
+  --elkubo-blue-light: #80DEEA;
+  --safe-area-inset-top: env(safe-area-inset-top, 0);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0);
+  --safe-area-inset-left: env(safe-area-inset-left, 0);
+  --safe-area-inset-right: env(safe-area-inset-right, 0);
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: #0a1e26;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Page background após o carregamento: teal escuro como na referência */
+.page-bg {
+  background: #113642;
+  background-image:
+    radial-gradient(ellipse 120% 80% at 0% 100%, rgba(0, 0, 0, 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse 120% 80% at 100% 100%, rgba(0, 0, 0, 0.25) 0%, transparent 50%);
+}
+
+.safe-area-padding {
+  padding-left: var(--safe-area-inset-left);
+  padding-right: var(--safe-area-inset-right);
+  padding-top: var(--safe-area-inset-top);
+  padding-bottom: var(--safe-area-inset-bottom);
+}
+
+/* Cartas da galeria: entrada em sequência + flutuação suave contínua */
+.gallery-card {
+  animation: card-fade-in 0.6s ease-out forwards, photo-float 3.5s ease-in-out 0.8s infinite;
+}
+
+@keyframes card-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes photo-float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes carousel-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.carousel-fade {
+  animation: carousel-fade 0.35s ease-out;
+}
+
+/* Luminado branco: brilho passando da esquerda para a direita */
+@keyframes shimmer-sweep {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+  }
+}
+
+/* Usado nas cartas do carrossel e no botão Entrar no grupo */
+.shimmer-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.shimmer-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 25%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 100%
+  );
+  animation: shimmer-sweep 2.2s ease-in-out infinite;
+}
+
+/* Botão: laminado um pouco mais visível e intervalo maior */
+.btn-shine .shimmer-overlay::after {
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.25) 30%,
+    rgba(255, 255, 255, 0.55) 50%,
+    rgba(255, 255, 255, 0.25) 70%,
+    transparent 100%
+  );
+  animation-duration: 2.5s;
+  animation-delay: 0.5s;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
